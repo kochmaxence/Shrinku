@@ -1,0 +1,15 @@
+{
+  "name": "shrinku",
+  "version": "1.0.0",
+  "description": "Short url generator",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Koch Maxence",
+  "license": "MIT",
+  "dependencies": {
+    "shortid": "^2.2.6"
+  }
+}
