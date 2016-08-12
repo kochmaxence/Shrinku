@@ -2,6 +2,7 @@ const shortid = require('shortid');
 
 const DumbAdapter = require('./adapters/DumbAdapter');
 const MemoryAdapter = require('./adapters/MemoryAdapter');
+const AbstractAdapter = require('./adapters/AbstractAdapter');
 
 class Shrinku {
   constructor(opts) {
@@ -13,6 +14,7 @@ class Shrinku {
     return {
       MemoryAdapter,
       DumbAdapter,
+      AbstractAdapter,
     };
   }
 
