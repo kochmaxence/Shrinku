@@ -61,12 +61,6 @@
                       </a></li>
                       
                       <li><a
-                        href='#Shrinku#isUnique'
-                        class='regular pre-open'>
-                        #isUnique
-                      </a></li>
-                      
-                      <li><a
                         href='#Shrinku#shrink'
                         class='regular pre-open'>
                         #shrink
@@ -197,7 +191,7 @@
 
   
 
-  <p>[Adapters description]</p>
+  <p>Returns basics adapters</p>
 
 
   <div class='pre p1 fill-light mt0'>Adapters</div>
@@ -310,84 +304,12 @@
 
   
 
-  <p>[addAdapter description]</p>
+  <p>Add an adapter to the list of available adapter.
+The default adapter by default in every calls.
+The first adapter registered is set as default.</p>
 
 
-  <div class='pre p1 fill-light mt0'>addAdapter(name: [type], adapter: [type], opts: [type])</div>
-
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>([type])</code> [description]
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>adapter</span> <code class='quiet'>([type])</code> [description]
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>opts</span> <code class='quiet'>([type])</code> [description]
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Shrinku#isUnique'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>isUnique(opts)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>[isUnique description]</p>
-
-
-  <div class='pre p1 fill-light mt0'>isUnique(opts: [type]): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  <div class='pre p1 fill-light mt0'>addAdapter(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, adapter: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, opts: objects)</div>
 
   
 
@@ -403,7 +325,23 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>opts</span> <code class='quiet'>([type])</code> [description]
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> Internal name for the adapter. Must be unique.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>adapter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> Adapter instance. Must qualify with AbstractAdapter.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>opts</span> <code class='quiet'>(objects)</code> Options used by shrinku.
 
           </div>
           
@@ -415,17 +353,16 @@
   
 
   
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
-        [description]
 
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
       
+      <pre class='p1 overflow-auto round fill-light'>shrinku.addAdapter(<span class="hljs-string">'memory'</span>, <span class="hljs-keyword">new</span> Shrinku.Adapters.MemoryAdapter());
+shrinku.addAdapter(<span class="hljs-string">'dumb'</span>, <span class="hljs-keyword">new</span> Shrinku.Adapters.DumbAdapter(), { <span class="hljs-keyword">default</span>: <span class="hljs-literal">true</span> });</pre>
     
-  
-
-  
-
   
 
   
@@ -450,10 +387,10 @@
 
   
 
-  <p>[shrink description]</p>
+  <p>Shorten an url, verify if it exists (opt-out) and save it (opt-out).</p>
 
 
-  <div class='pre p1 fill-light mt0'>shrink(opts: [[type]](default {})): [type]</div>
+  <div class='pre p1 fill-light mt0'>shrink(opts: [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>](default {})): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
 
   
 
@@ -469,8 +406,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>opts</span> <code class='quiet'>([[type]](default {}))</code> =             {} 
-[description]
+            <span class='code bold'>opts</span> <code class='quiet'>([<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>](default {}))</code> = {save: true, unique: true} Options object. opts.url is required.
 
           </div>
           
@@ -484,8 +420,8 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>[type]</code>:
-        [description]
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        Returns an object with url and hash on resolve.
 
       
     
@@ -493,6 +429,14 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>shrinku
+	.shrink({ url: <span class="hljs-string">'http://domain.tld'</span> })
+	.then((result) =&gt; <span class="hljs-built_in">console</span>.log(result.hash, result.url));</pre>
+    
   
 
   
@@ -517,10 +461,10 @@
 
   
 
-  <p>[unshrink description]</p>
+  <p>Get the corresponding data for a specified hash.</p>
 
 
-  <div class='pre p1 fill-light mt0'>unshrink(opts: [[type]](default {})): [type]</div>
+  <div class='pre p1 fill-light mt0'>unshrink(opts: [objects](default {})): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
 
   
 
@@ -536,8 +480,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>opts</span> <code class='quiet'>([[type]](default {}))</code> =             {} 
-[description]
+            <span class='code bold'>opts</span> <code class='quiet'>([objects](default {}))</code> = {} Options object. opts.hash is required.
 
           </div>
           
@@ -551,8 +494,8 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>[type]</code>:
-        [description]
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        Returns an object with url and hash on resolve.
 
       
     
@@ -560,6 +503,13 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>shrinku.unshrink({ hash: <span class="hljs-string">'XXXXX'</span> })
+	.then((result) =&gt; <span class="hljs-built_in">console</span>.log(result.hash, result.url));</pre>
+    
   
 
   
