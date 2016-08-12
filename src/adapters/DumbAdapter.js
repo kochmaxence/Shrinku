@@ -1,5 +1,3 @@
-'use strict';
-
 class DumbAdapter {
   findByUrl(opts = {}) {
     return Promise.resolve({ url: opts.url, hash: undefined });
@@ -9,8 +7,8 @@ class DumbAdapter {
   }
 
   find(opts = {}) {
-    if(opts.hash) return this.findByHash(opts);
-    if(opts.url) return this.findByUrl(opts);
+    if (opts.hash) return this.findByHash(opts);
+    if (opts.url) return this.findByUrl(opts);
 
     return Promise.resolve({ url: opts.url, hash: opts.hash });
   }
