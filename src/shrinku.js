@@ -45,7 +45,7 @@ class Shrinku {
         }).then(resolve);
       }
 
-      return resolve(hash);
+      return resolve({ hash: hash, url: opts.url });
     });
   }
 
