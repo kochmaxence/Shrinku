@@ -10,7 +10,8 @@ class Shrinku {
 
   static get Adapters() {
     return {
-      MemoryAdapter: require('./adapters/MemoryAdapter')
+      MemoryAdapter: require('./adapters/MemoryAdapter'),
+      DumbAdapter: require('./adapters/DumbAdapter')
     };
   }
 
