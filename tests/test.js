@@ -13,7 +13,7 @@ context('Shrinku', function() {
     assert(adaptersCount === 0);
   });
 
-  it('when no adapters set, it should still shrink an url', function(done) {
+  it('should still shrink an url when no adapter is set', function(done) {
     let shrinku = new Shrinku();
     shrinku.shrink(defaultOpts)
       .then((data) => {
@@ -22,5 +22,25 @@ context('Shrinku', function() {
 
         return done();
       });
+  });
+
+  it('should register a first adapter and set it as default if there\'s none', function() {
+    let shrinku = new Shrinku();
+    let memoryAdapter = new Shrinku.Adapters.MemoryAdapter();
+
+    shrinku.addAdapter('memory', memoryAdapter);
+    assert.equal(shrinku.adapters.memory, memoryAdapter);
+    assert.equal(shrinku.adapters.default, memoryAdapter);
+  });
+
+  it('should add an additional adapter and set it as default', function() {
+    let shrinku = new Shrinku();
+    let memoryAdapter = new Shrinku.Adapters.MemoryAdapter();
+    let dumbAdapter = new Shrinku.Adapters.DumbAdapter();
+
+    shrinku.addAdapter('memory', memoryAdapter);
+    shrinku.addAdapter('dumb', dumbAdapter, { default: true });
+
+    assert.equal(shrinku.adapters.default, dumbAdapter);
   });
 });
