@@ -13,6 +13,7 @@ npm install shrinku && echo 'NOT YET PUBLISHED ON NPM.'
   const Shrinku = require('shrinku');
   const shrinku = new Shrinku();
 
+  shrinku.useStrategy(new Shrinku.Strategies.SimpleStrategy());
   shrinku.addAdapter('memory', new Shrinku.Adapters.MemoryAdapter());
 
   shrinku.shrink({ url: 'http://github.com' })
