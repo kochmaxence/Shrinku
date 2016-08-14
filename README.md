@@ -25,8 +25,8 @@ npm install shrinku && echo 'NOT YET PUBLISHED ON NPM.'
     .catch(console.log);
 ```
 ## Dependencies
-Node < `6.3`
-Shortid
+- Node < `6.3`
+- Shortid
 
 ## Why ?
 To be written
