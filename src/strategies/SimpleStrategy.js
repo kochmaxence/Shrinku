@@ -17,12 +17,14 @@ class SimpleStrategy extends BaseStrategy {
   }
 
   shrink(adapters, opts) {
+    super.shrink(adapters, opts);
+
     const options = Object.assign({}, {
       save: true,
       unique: true
     }, opts);
 
-    if (!options.url) return reject(new Error('No opts.url specified.'));
+    if (!options.url) return Promise.reject(new Error('No opts.url specified.'));
 
     return this.isUnique(adapters, options).then((data) => {
       if (data) return Promise.resolve(data);
@@ -38,11 +40,11 @@ class SimpleStrategy extends BaseStrategy {
   }
 
   unshrink(adapters, opts) {
-    return new Promise((resolve, reject) => {
-      if (!opts.hash) return reject(new Error('No opts.hash specified.'));
+    super.unshrink(adapters, opts);
 
-      return adapters.default.find({ hash: opts.hash }).then(resolve);
-    });
+    if (!opts.hash) return Promise.reject(new Error('No opts.hash specified.'));
+
+    return adapters.default.find({ hash: opts.hash, unique: opts.unique || true });
   }
 }
 
