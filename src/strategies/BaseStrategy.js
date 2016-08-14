@@ -7,8 +7,12 @@ class BaseStrategy {
     this.log = log;
   }
 
-  query(adapters, opts) {
-    log.debug({ adapters: Object.keys(adapters), opts}, `${this.strategyName}#query`);
+  shrink(adapters, opts) {
+    log.debug({ adapters: Object.keys(adapters), opts}, `${this.strategyName}#shrink`);
+  }
+
+  unshrink(adapters, opts) {
+    log.debug({ adapters: Object.keys(adapters), opts}, `${this.strategyName}#unshrink`);
   }
 }
 
