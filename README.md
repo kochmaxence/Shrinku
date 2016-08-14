@@ -27,9 +27,11 @@ shrinku.shrink({ url: 'http://github.com' })
 ```
 
 ### Adapters
-- BaseAdapter
-- DumbAdapter
-- MemoryAdapter
+- Shrinku.Adapters.BaseAdapter
+- Shrinku.Adapters.DumbAdapter
+- Shrinku.Adapters.MemoryAdapter
+- [RethinkdbAdapter](http://github.com/karasube/shrinku-adapter-rethinkdb)
+- [YourlsAdapter](http://github.com/karasube/shrinku-adapter-yourls) [not yet released/WIP]
 
 An adapter must implement:
 - `findByUrl(options)`
@@ -38,9 +40,10 @@ An adapter must implement:
 - `save(options)`
 
 ### Strategies
-- BaseStrategy
-- SimpleStrategy
-- CachedStrategy
+- Shrinku.Strategies.BaseStrategy
+- Shrinku.Strategies.SimpleStrategy
+- [CachedStrategy](http://github.com/karasube/shrinku-strategy-cached) [not yet released/WIP]
+- [MigrationStrategy](http://github.com/karasube/shrinku-strategy-migration) [not yet released/WIP]
 
 A strategy must implement:
 - `shrink(adapters, options)`
