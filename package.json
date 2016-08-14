@@ -1,7 +1,7 @@
 {
   "name": "shrinku",
-  "version": "1.0.0",
-  "description": "Short url generator",
+  "version": "1.0.1",
+  "description": "Short link generator with adaptable backend, adaptable behavior.",
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index",
@@ -10,6 +10,18 @@
     "lint": "eslint ./src",
     "doc": "documentation build ./src -o ./doc -f html"
   },
+  "keywords": [
+    "url",
+    "strategy",
+    "bit.ly",
+    "goo.gl",
+    "link",
+    "shorturl",
+    "shortener",
+    "short",
+    "shrinku",
+    "adapter"
+  ],
   "author": "Koch Maxence",
   "license": "MIT",
   "dependencies": {
