@@ -1,12 +1,9 @@
 # shrinku
 
-## Status
-[![Crates.io](https://img.shields.io/badge/status-NOT%20READY-orange.svg?style=flat-square)]()
-
 ## TL;DR
 
 ```sh
-npm install shrinku && echo 'NOT YET PUBLISHED ON NPM.'
+npm install shrinku
 ```
 
 ```js
