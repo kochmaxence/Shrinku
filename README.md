@@ -10,21 +10,41 @@ npm install shrinku && echo 'NOT YET PUBLISHED ON NPM.'
 ```
 
 ```js
-  const Shrinku = require('shrinku');
-  const shrinku = new Shrinku();
+const Shrinku = require('shrinku');
+const shrinku = new Shrinku();
 
-  shrinku.useStrategy(new Shrinku.Strategies.SimpleStrategy());
-  shrinku.addAdapter('memory', new Shrinku.Adapters.MemoryAdapter());
+shrinku.useStrategy(new Shrinku.Strategies.SimpleStrategy());
+shrinku.addAdapter('memory', new Shrinku.Adapters.MemoryAdapter());
 
-  shrinku.shrink({ url: 'http://github.com' })
-    .then((result) => {
-      console.log(result.url, result.hash);
+shrinku.shrink({ url: 'http://github.com' })
+  .then((result) => {
+    console.log(result.url, result.hash);
 
-      return shrinku.unshrink({ hash: result.hash });
-    })
-    .then(console.log)
-    .catch(console.log);
+    return shrinku.unshrink({ hash: result.hash });
+  })
+  .then(console.log)
+  .catch(console.log);
 ```
+
+### Adapters
+- BaseAdapter
+- DumbAdapter
+- MemoryAdapter
+
+An adapter must implement:
+- `findByUrl(options)`
+- `findByHash(options)`
+- `find(options)`
+- `save(options)`
+
+### Strategies
+- BaseStrategy
+- SimpleStrategy
+- CachedStrategy
+
+A strategy must implement:
+- `shrink(adapters, options)`
+- `unshrink(adapters, options)`
 
 ## Dependencies
 - Node > `6.3`

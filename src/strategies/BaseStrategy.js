@@ -1,7 +1,7 @@
 const log = require('../logger');
 
 class BaseStrategy {
-  constructor(strategyName) {
+  constructor(strategyName = '') {
     log.debug({ strategyName }, 'Initializing strategy');
     this.strategyName = strategyName;
     this.log = log;
