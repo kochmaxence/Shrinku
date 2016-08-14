@@ -1,6 +1,6 @@
-const AbstractAdapter = require('./AbstractAdapter');
+const BaseAdapter = require('./BaseAdapter');
 
-class MemoryAdapter extends AbstractAdapter {
+class MemoryAdapter extends BaseAdapter {
   constructor() {
     super();
     this.store = {};

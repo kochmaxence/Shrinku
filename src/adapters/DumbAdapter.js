@@ -1,6 +1,6 @@
-const AbstractAdapter = require('./AbstractAdapter');
+const BaseAdapter = require('./BaseAdapter');
 
-class DumbAdapter extends AbstractAdapter {
+class DumbAdapter extends BaseAdapter {
   findByUrl(opts = {}) {
     super.findByUrl(opts);
 

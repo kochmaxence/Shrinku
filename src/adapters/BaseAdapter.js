@@ -1,10 +1,10 @@
 const log = require('../logger');
 
 /**
- * Adapter Interface
- * @interface
+ * Base class to create adapters.
+ * @class
  */
-class AbstractAdapter {
+class BaseAdapter {
   constructor(opts = {}) {
     log.debug({opts}, `${this.adapterName}#constructor`);
 
@@ -63,4 +63,4 @@ class AbstractAdapter {
   }
 }
 
-module.exports = AbstractAdapter;
+module.exports = BaseAdapter;
