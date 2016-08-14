@@ -22,12 +22,15 @@ class Shrinku {
    * @param {object} [opts={}] options
    */
   constructor(opts) {
+    log.info({ opts }, 'Shrinku is initializing.');
+
     this.opts = opts || {};
     this.adapters = {};
 
     this.strategy = null;
 
-    log.info({ opts: opts }, 'Shrinku is initializing.');
+    this.hashGenerator = { generate: () => shortid.generate() };
+
   }
 
   /**
@@ -92,17 +95,6 @@ class Shrinku {
     return Promise.resolve(this.adapters[name]);
   }
 
-  isUnique(opts) {
-    if (!opts.unique) return Promise.resolve();
-
-    log.debug({opts}, 'Checking for uniqueness.');
-
-    return this.adapters.default.findByUrl(opts).then((result) => {
-      if (result && result.url && result.hash) return Promise.resolve(result);
-      return Promise.resolve();
-    });
-  }
-
   /**
    * Shorten an url, verify if it exists (opt-out) and save it (opt-out).
    * @param  {object} opts = {save: true, unique: true} Options object. opts.url is required.
@@ -114,7 +106,7 @@ class Shrinku {
    */
   shrink(opts = {}) {
     const options = Object.assign({}, {
-      hashGenerator: shortid
+      hashGenerator: this.hashGenerator
     }, opts);
     return this.strategy.shrink(this.adapters, options);
   }
