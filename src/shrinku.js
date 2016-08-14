@@ -2,7 +2,10 @@ const shortid = require('shortid');
 
 const DumbAdapter = require('./adapters/DumbAdapter');
 const MemoryAdapter = require('./adapters/MemoryAdapter');
-const AbstractAdapter = require('./adapters/AbstractAdapter');
+const BaseAdapter = require('./adapters/BaseAdapter');
+
+const BaseStrategy = require('./strategies/BaseStrategy');
+const SimpleStrategy = require('./strategies/SimpleStrategy');
 
 const log = require('./logger');
 
@@ -22,6 +25,8 @@ class Shrinku {
     this.opts = opts || {};
     this.adapters = {};
 
+    this.strategy = null;
+
     log.info({ opts: opts }, 'Shrinku is initializing.');
   }
 
@@ -33,8 +38,20 @@ class Shrinku {
     return {
       MemoryAdapter,
       DumbAdapter,
-      AbstractAdapter,
+      BaseAdapter,
     };
+  }
+
+  static get Strategies() {
+    return {
+      BaseStrategy,
+      SimpleStrategy
+    };
+  }
+
+  useStrategy(strategy) {
+    log.info({ strategyName: strategy.strategyName }, `Use strategy: ${strategy.strategyName}`);
+    this.strategy = strategy;
   }
 
   /**
@@ -42,7 +59,7 @@ class Shrinku {
    * The default adapter by default in every calls.
    * The first adapter registered is set as default.
    * @param {string} name    Internal name for the adapter. Must be unique.
-   * @param {object} adapter Adapter instance. Must qualify with AbstractAdapter.
+   * @param {object} adapter Adapter instance. Must qualify with BaseAdapter.
    * @param {objects} opts    Options used by shrinku.
    * @example
    * shrinku.addAdapter('memory', new Shrinku.Adapters.MemoryAdapter());
@@ -97,23 +114,9 @@ class Shrinku {
    */
   shrink(opts = {}) {
     const options = Object.assign({}, {
-      save: true,
-      unique: true
+      hashGenerator: shortid
     }, opts);
-
-    if (!options.url) return reject(new Error('No opts.url specified.'));
-
-    return this.isUnique(options).then((data) => {
-      if (data) return Promise.resolve(data);
-
-      options.hash = shortid.generate();
-
-      if (options.save && Object.keys(this.adapters).length) {
-        return this.adapters.default.save(options);
-      }
-
-      return Promise.resolve({ hash, url: options.url });
-    });
+    return this.strategy.shrink(this.adapters, options);
   }
 
   /**
@@ -125,11 +128,7 @@ class Shrinku {
    * 	.then((result) => console.log(result.hash, result.url));
    */
   unshrink(opts = {}) {
-    return new Promise((resolve, reject) => {
-      if (!opts.hash) return reject(new Error('No opts.hash specified.'));
-
-      return this.adapters.default.find({ hash: opts.hash }).then(resolve);
-    });
+    return this.strategy.unshrink(this.adapters, opts);
   }
 }
 
