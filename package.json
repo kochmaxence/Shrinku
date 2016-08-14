@@ -5,16 +5,21 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index",
+    "start-debug": "SHRINKU_DEBUG='debug' node ./src/index | bunyan",
     "test": "mocha ./tests",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "doc": "documentation build ./src -o ./doc -f html"
   },
   "author": "Koch Maxence",
   "license": "MIT",
   "dependencies": {
+    "bunyan": "^1.8.1",
     "shortid": "^2.2.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "documentation": "^4.0.0-beta9",
+    "esdoc": "^0.4.8",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
     "eslint-plugin-import": "^1.13.0",

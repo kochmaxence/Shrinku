@@ -1,25 +1,38 @@
-class MemoryAdapter {
+const AbstractAdapter = require('./AbstractAdapter');
+
+class MemoryAdapter extends AbstractAdapter {
   constructor() {
+    super();
     this.store = {};
   }
 
   findByUrl(opts = {}) {
+    super.findByUrl(opts);
+
     const data = Object.keys(this.store).filter((key) => this.store[key] === opts.url)[0];
 
-    if (data) return Promise.resolve({ hash: data, url: opts.url });
+    if (data) {
+      this.log.debug({ data: data }, `Found found in store ${this.adapterName}`);
+      return Promise.resolve(data);
+    }
 
-    return Promise.reject(new Error('Not found.'));
+    this.log.debug({ options: opts }, `Not found in store ${this.adapterName}`);
+    return Promise.resolve();
   }
 
   findByHash(opts = {}) {
+    super.findByHash(opts);
+
     const data = this.store[opts.hash];
 
     if (data) return Promise.resolve({ hash: opts.hash, url: data });
 
-    return Promise.reject(new Error('Not found.'));
+    return Promise.resolve();
   }
 
   find(opts = {}) {
+    super.find(opts);
+
     if (opts.hash) return this.findByHash(opts);
     if (opts.url) return this.findByUrl(opts);
 
@@ -27,6 +40,8 @@ class MemoryAdapter {
   }
 
   save(opts = {}) {
+    super.save(opts);
+
     this.store[opts.hash] = opts.url;
     return Promise.resolve({ hash: opts.hash, url: opts.url });
   }
