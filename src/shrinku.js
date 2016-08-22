@@ -1,5 +1,3 @@
-const shortid = require('shortid');
-
 const DumbAdapter = require('./adapters/DumbAdapter');
 const MemoryAdapter = require('./adapters/MemoryAdapter');
 const BaseAdapter = require('./adapters/BaseAdapter');
@@ -7,8 +5,10 @@ const BaseAdapter = require('./adapters/BaseAdapter');
 const BaseStrategy = require('./strategies/BaseStrategy');
 const SimpleStrategy = require('./strategies/SimpleStrategy');
 
-const log = require('./logger');
+const Errors = require('./errors');
 
+const log = require('./logger');
+const shortid = require('shortid');
 
 /**
  * Shrinku
@@ -30,7 +30,6 @@ class Shrinku {
     this.strategy = null;
 
     this.hashGenerator = { generate: () => shortid.generate() };
-
   }
 
   /**
@@ -48,13 +47,25 @@ class Shrinku {
   static get Strategies() {
     return {
       BaseStrategy,
-      SimpleStrategy
+      SimpleStrategy,
     };
+  }
+
+  static get Logger() {
+    return log;
+  }
+
+  static get Errors() {
+    return Errors;
   }
 
   useStrategy(strategy) {
     log.info({ strategyName: strategy.strategyName }, `Use strategy: ${strategy.strategyName}`);
     this.strategy = strategy;
+  }
+
+  addAdapter(name, adapter, opts = {}) {
+    return this.useAdapter(name, adapter, opts);
   }
 
   /**
@@ -68,7 +79,7 @@ class Shrinku {
    * shrinku.addAdapter('memory', new Shrinku.Adapters.MemoryAdapter());
    * shrinku.addAdapter('dumb', new Shrinku.Adapters.DumbAdapter(), { default: true });
    */
-  addAdapter(name, adapter, opts) {
+  useAdapter(name, adapter, opts = {}) {
     log.info({ adapterName: name, opts: opts }, `Adding new adapter. [${name}]`);
 
     if (name === 'default') {
@@ -77,7 +88,7 @@ class Shrinku {
       return Promise.reject(err);
     }
 
-    if(adapter.name === '' && adapter.setAdapterName) {
+    if(adapter.name !== '' && adapter.setAdapterName) {
       adapter.setAdapterName(name);
     }
 
