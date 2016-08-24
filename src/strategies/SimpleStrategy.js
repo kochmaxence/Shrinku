@@ -11,8 +11,14 @@ class SimpleStrategy extends BaseStrategy {
     this.log.debug({opts}, 'Checking for uniqueness.');
 
     return adapters.default.findByUrl(opts).then((result) => {
-      if (result && result.url && result.hash) return Promise.resolve(result);
-      return Promise.resolve();
+      if(!result) return Promise.resolve();
+
+      if(result && result.push && result.pop && result.shift && result.length)
+        return result[0];
+
+      if(!result.hash) return Promise.resolve();
+
+      return Promise.resolve(result);
     });
   }
 
